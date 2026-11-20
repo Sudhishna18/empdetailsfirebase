@@ -170,6 +170,39 @@ public class MainActivity extends AppCompatActivity {
                 }
                 adapter.notifyDataSetChanged();
             }
+   @Override
+            public void onCancelled(DatabaseError error) {
+            }
+        });
+
+        // Add Employee
+        btnAdd.setOnClickListener(v -> {
+            Emp e = new Emp(etName.getText().toString(), etAge.getText().toString(), etSalary.getText().toString());
+            dbRef.push().setValue(e);
+            clearFields();
+        });
+
+        // Update selected Employee
+        btnUpdate.setOnClickListener(v -> {
+            if (selectedKey != null) {
+                Emp e = new Emp(etName.getText().toString(), etAge.getText().toString(), etSalary.getText().toString());
+                dbRef.child(selectedKey).setValue(e);
+                clearFields();
+            } else {
+                Toast.makeText(this, "Select an item first", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Delete selected Employee
+        btnDelete.setOnClickListener(v -> {
+            if (selectedKey != null) {
+                dbRef.child(selectedKey).removeValue();
+                clearFields();
+            } else {
+                Toast.makeText(this, "Select an item first", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
 
 
