@@ -135,6 +135,41 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> keys = new ArrayList<>();
     ArrayAdapter<String> adapter;
     String selectedKey = null;
+ @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        etName = findViewById(R.id.etName);
+        etAge = findViewById(R.id.etAge);
+        etSalary = findViewById(R.id.etSalary);
+        btnAdd = findViewById(R.id.btnAdd);
+        btnUpdate = findViewById(R.id.btnUpdate);
+        btnDelete = findViewById(R.id.btnDelete);
+        listView = findViewById(R.id.listView);
+
+        dbRef = FirebaseDatabase.getInstance().getReference("Employees");
+
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
+        listView.setAdapter(adapter);
+
+        // Read and listen to data updates
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                items.clear();
+                keys.clear();
+                for (DataSnapshot d : snapshot.getChildren()) {
+                    // FIX: Changed "jjEmp" to "Emp" to match your actual class file name
+                    Emp e = d.getValue(Emp.class);
+                    if (e != null) {
+                        // FIX: Updated variable references to use standard getters: getName(), getAge(), getSalary()
+                        items.add(e.getName() + " - " + e.getAge() + " - " + e.getSalary());
+                        keys.add(d.getKey());
+                    }
+                }
+                adapter.notifyDataSetChanged();
+            }
 
 
 
