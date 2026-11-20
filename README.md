@@ -79,6 +79,31 @@ Registeration Number :
             android:layout_weight="1"
             android:text="Add"
             style="?android:attr/buttonBarButtonStyle" />
+        <Button
+            android:id="@+id/btnUpdate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Update"
+            style="?android:attr/buttonBarButtonStyle" />
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Delete"
+            style="?android:attr/buttonBarButtonStyle" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
+```
+
 
 
 
