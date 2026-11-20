@@ -202,13 +202,37 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Select an item first", Toast.LENGTH_SHORT).show();
             }
         });
+        // Select item from list to edit or delete
+        listView.setOnItemClickListener((p, v, pos, id) -> {
+            selectedKey = keys.get(pos);
+            dbRef.child(selectedKey).get().addOnSuccessListener(d -> {
+                Emp e = d.getValue(Emp.class);
+                if (e != null) {
+                    // FIX: Updated to use standard getters: getName(), getAge(), getSalary()
+                    etName.setText(e.getName());
+                    etAge.setText(e.getAge());
+                    etSalary.setText(e.getSalary());
+                }
+            });
+        });
+    }
 
+    private void clearFields() {
+        etName.setText("");
+        etAge.setText("");
+        etSalary.setText("");
+        selectedKey = null;
+    }
+}
+```
 
 
 
 
 
 ## OUTPUT
+<img width="1915" height="1140" alt="Screenshot 2026-11-20 110149" src="https://github.com/user-attachments/assets/6630f36f-344d-4c13-9932-109bfe28edd1" />
+<img width="1916" height="1078" alt="Screenshot 2026-11-20 110201" src="https://github.com/user-attachments/assets/37eb48ed-d683-4a08-8f5a-9f7121ffd085" />
 
 
 
